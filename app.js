@@ -1,9 +1,12 @@
 const express = require('express')
 const app = express()
 const path = require('path')
+const dotenv = require('dotenv')
 var multer = require('multer')
 const Post = require('./api/models/posts')
 const postsData = new Post()
+
+dotenv.config()
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -65,4 +68,6 @@ app.get('*', (req, res) =>
   res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 )
 
-app.listen(3000, () => console.log('Listening on http://localhost:3000'))
+const PORT = process.env.PORT || 5000
+
+app.listen(PORT, console.log(`Server running on port ${PORT}`))
